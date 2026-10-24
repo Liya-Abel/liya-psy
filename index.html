@@ -81,7 +81,6 @@
      "name": "Россия"
     }
    ],
-   "availableLanguage": "ru",
    "priceRange": "4000–4600 ₽",
    "knowsAbout": [
     "тревожность",
@@ -96,16 +95,28 @@
      "name": "Консультация психолога онлайн, 55 минут",
      "price": "4000",
      "priceCurrency": "RUB",
-     "availableAtOrFrom": {
-      "@type": "VirtualLocation",
-      "name": "Онлайн по видеосвязи"
-     }
+     "areaServed": {
+      "@type": "Country",
+      "name": "Россия"
+     },
+     "description": "Онлайн по видеосвязи (Яндекс Телемост, Telegram, WhatsApp)"
     },
     {
      "@type": "Offer",
      "name": "Консультация психолога очно в Мурино, 55 минут",
      "price": "4600",
-     "priceCurrency": "RUB"
+     "priceCurrency": "RUB",
+     "availableAtOrFrom": {
+      "@type": "Place",
+      "name": "Кабинет в Мурино",
+      "address": {
+       "@type": "PostalAddress",
+       "streetAddress": "ул. Авиаторов Балтики, д. 13",
+       "addressLocality": "Мурино",
+       "addressRegion": "Ленинградская область",
+       "addressCountry": "RU"
+      }
+     }
     }
    ],
    "sameAs": [
