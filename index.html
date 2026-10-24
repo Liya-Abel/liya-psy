@@ -639,9 +639,9 @@ footer nav a:hover{color:var(--accent)}
     <ul class="nav-links">
       <li><a href="#about">Обо мне</a></li>
       <li><a href="#price">Стоимость</a></li>
+      <li><a href="#book">Запись</a></li>
       <li><a href="#topics">С чем работаю</a></li>
       <li><a href="#approach">Подход</a></li>
-      <li><a href="#book">Запись</a></li>
       <li><a href="#docs">Образование</a></li>
       <li><a href="#reviews">Отзывы</a></li>
     </ul>
@@ -807,6 +807,64 @@ footer nav a:hover{color:var(--accent)}
     <div class="price-note rv">
       <svg class="ill" viewBox="0 0 40 40" aria-hidden="true"><rect class="s fy" x="8" y="4" width="24" height="32" rx="3"/><path class="s" d="M14 14h12M14 20h12M14 26h7"/></svg>
       <div>Работаю по <a href="oferta.html">договору-оферте</a>. Оплата — заранее, за 24 часа до встречи. Перенести или отменить встречу можно не позднее чем за 24 часа. Стоимость фиксируется на год, об изменении цены предупреждаю минимум за 30 дней.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ КАК ПРОХОДИТ ============ -->
+<section id="steps">
+  <div class="wrap center">
+    <span class="eyebrow rv">просто и понятно</span>
+    <h2 class="rv">Как начать</h2>
+    <div class="steps">
+      <div class="step rv">
+        <svg class="ill" viewBox="0 0 140 140" aria-hidden="true"><path class="s fp" d="M30 70l84-36-26 78-18-26z"/><path class="s" d="M70 86l44-52"/><path class="s a" d="M26 96c-10 6-14 14-10 22" style="stroke-dasharray:3 6"/></svg>
+        <span class="num">1</span><h3>Напишите мне</h3><p>В Telegram или WhatsApp — пара слов о том, что беспокоит. Можно без формулировок.</p>
+      </div>
+      <div class="step rv">
+        <svg class="ill" viewBox="0 0 140 140" aria-hidden="true"><use href="#buddy" x="18" y="46" width="52" height="52"/><use href="#buddy-o" x="72" y="46" width="52" height="52"/><path class="s a" d="M50 38c0-10 8-14 14-8M88 30c6-6 14-2 14 8"/></svg>
+        <span class="num">2</span><h3>Первая встреча</h3><p>Знакомимся, вы рассказываете о себе, я задаю вопросы. Смотрим, комфортно ли нам вместе.</p>
+      </div>
+      <div class="step rv">
+        <svg class="ill" viewBox="0 0 140 140" aria-hidden="true"><path class="s fo" d="M26 40l28-10 32 10 28-10v70l-28 10-32-10-28 10z"/><path class="s" d="M54 30v70M86 40v70"/><path class="s a" d="M36 90c10-20 30-10 40-30s20-10 26-24" style="stroke-dasharray:3 6"/><path class="s a" d="M96 30l10 10M106 30l-10 10"/></svg>
+        <span class="num">3</span><h3>План терапии</h3><p>Формулируем запрос и намечаем путь: куда идём и как поймём, что пришли.</p>
+      </div>
+      <div class="step rv">
+        <svg class="ill" viewBox="0 0 140 140" aria-hidden="true"><path class="s fo" d="M52 96h36l-6 28H58z"/><path class="s ol" d="M70 96V50"/><path class="s ol fo" d="M70 70c-18 0-26-12-24-24 14 0 24 10 24 24z"/><path class="s ol fo" d="M70 60c4-18 16-26 28-22-2 16-14 22-28 22z"/><circle class="fy" cx="106" cy="30" r="10"/></svg>
+        <span class="num">4</span><h3>Движение</h3><p>Регулярно встречаемся, делаем небольшие эксперименты и замечаем изменения в жизни.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ЗАПИСЬ ============ -->
+<section id="book" style="padding-top:30px">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow rv">онлайн-запись</span>
+      <h2 class="rv">Выберите удобное время</h2>
+      <p class="lead rv">Выберите формат, день и время — откроется чат с готовым сообщением. Я подтвержу запись, как только увижу. Расписание открыто на две недели вперёд.</p>
+    </div>
+    <div class="book-card rv">
+      <p class="bk-label">1. формат</p>
+      <div class="bk-format">
+        <button class="bk-pill on" data-fmt="online">Онлайн<small>4000 ₽</small></button>
+        <button class="bk-pill" data-fmt="offline">Очно в Мурино<small>4600 ₽</small></button>
+      </div>
+      <p class="bk-label">2. день</p>
+      <div class="bk-days" id="bkDays"></div>
+      <p class="bk-label">3. время <span style="font-family:var(--f-body);font-size:.8rem;color:var(--muted)">(по Москве)</span></p>
+      <div class="bk-slots" id="bkSlots"></div>
+      <p class="bk-note" id="bkOff" hidden>🗝 Кабинет в Мурино я арендую под каждую встречу: запрошу его на выбранное время, а если он окажется занят — предложу ближайшее другое.</p>
+      <label class="agree"><input type="checkbox" class="agree-cb"><span>Я ознакомлен(а) с <a href="oferta.html" target="_blank">договором-офертой</a> и <a href="politika.html" target="_blank">политикой конфиденциальности</a></span></label>
+      <div class="bk-sum">
+        <div class="txt" id="bkTxt">Выберите время</div>
+        <div class="btns">
+          <button class="btn btn--accent" id="bkTg" data-needs-agree disabled><svg><use href="#i-tg"/></svg>Telegram</button>
+          <button class="btn" id="bkWa" data-needs-agree disabled><svg><use href="#i-wa"/></svg>WhatsApp</button>
+        </div>
+      </div>
+      <p class="bk-hint">Здесь показаны не все свободные окна. Нужно раньше, позже или в другой день — <a data-link="telegram" target="_blank" rel="noopener">напишите мне</a>, подберём время. Через сайт можно записаться минимум за сутки.</p>
     </div>
   </div>
 </section>
@@ -1000,64 +1058,6 @@ footer nav a:hover{color:var(--accent)}
       </div>
     </div>
 
-  </div>
-</section>
-
-<!-- ============ КАК ПРОХОДИТ ============ -->
-<section id="steps">
-  <div class="wrap center">
-    <span class="eyebrow rv">просто и понятно</span>
-    <h2 class="rv">Как начать</h2>
-    <div class="steps">
-      <div class="step rv">
-        <svg class="ill" viewBox="0 0 140 140" aria-hidden="true"><path class="s fp" d="M30 70l84-36-26 78-18-26z"/><path class="s" d="M70 86l44-52"/><path class="s a" d="M26 96c-10 6-14 14-10 22" style="stroke-dasharray:3 6"/></svg>
-        <span class="num">1</span><h3>Напишите мне</h3><p>В Telegram или WhatsApp — пара слов о том, что беспокоит. Можно без формулировок.</p>
-      </div>
-      <div class="step rv">
-        <svg class="ill" viewBox="0 0 140 140" aria-hidden="true"><use href="#buddy" x="18" y="46" width="52" height="52"/><use href="#buddy-o" x="72" y="46" width="52" height="52"/><path class="s a" d="M50 38c0-10 8-14 14-8M88 30c6-6 14-2 14 8"/></svg>
-        <span class="num">2</span><h3>Первая встреча</h3><p>Знакомимся, вы рассказываете о себе, я задаю вопросы. Смотрим, комфортно ли нам вместе.</p>
-      </div>
-      <div class="step rv">
-        <svg class="ill" viewBox="0 0 140 140" aria-hidden="true"><path class="s fo" d="M26 40l28-10 32 10 28-10v70l-28 10-32-10-28 10z"/><path class="s" d="M54 30v70M86 40v70"/><path class="s a" d="M36 90c10-20 30-10 40-30s20-10 26-24" style="stroke-dasharray:3 6"/><path class="s a" d="M96 30l10 10M106 30l-10 10"/></svg>
-        <span class="num">3</span><h3>План терапии</h3><p>Формулируем запрос и намечаем путь: куда идём и как поймём, что пришли.</p>
-      </div>
-      <div class="step rv">
-        <svg class="ill" viewBox="0 0 140 140" aria-hidden="true"><path class="s fo" d="M52 96h36l-6 28H58z"/><path class="s ol" d="M70 96V50"/><path class="s ol fo" d="M70 70c-18 0-26-12-24-24 14 0 24 10 24 24z"/><path class="s ol fo" d="M70 60c4-18 16-26 28-22-2 16-14 22-28 22z"/><circle class="fy" cx="106" cy="30" r="10"/></svg>
-        <span class="num">4</span><h3>Движение</h3><p>Регулярно встречаемся, делаем небольшие эксперименты и замечаем изменения в жизни.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ ЗАПИСЬ ============ -->
-<section id="book" style="padding-top:30px">
-  <div class="wrap">
-    <div class="center">
-      <span class="eyebrow rv">онлайн-запись</span>
-      <h2 class="rv">Выберите удобное время</h2>
-      <p class="lead rv">Выберите формат, день и время — откроется чат с готовым сообщением. Я подтвержу запись, как только увижу. Расписание открыто на две недели вперёд.</p>
-    </div>
-    <div class="book-card rv">
-      <p class="bk-label">1. формат</p>
-      <div class="bk-format">
-        <button class="bk-pill on" data-fmt="online">Онлайн<small>4000 ₽</small></button>
-        <button class="bk-pill" data-fmt="offline">Очно в Мурино<small>4600 ₽</small></button>
-      </div>
-      <p class="bk-label">2. день</p>
-      <div class="bk-days" id="bkDays"></div>
-      <p class="bk-label">3. время <span style="font-family:var(--f-body);font-size:.8rem;color:var(--muted)">(по Москве)</span></p>
-      <div class="bk-slots" id="bkSlots"></div>
-      <p class="bk-note" id="bkOff" hidden>🗝 Кабинет в Мурино я арендую под каждую встречу: запрошу его на выбранное время, а если он окажется занят — предложу ближайшее другое.</p>
-      <label class="agree"><input type="checkbox" class="agree-cb"><span>Я ознакомлен(а) с <a href="oferta.html" target="_blank">договором-офертой</a> и <a href="politika.html" target="_blank">политикой конфиденциальности</a></span></label>
-      <div class="bk-sum">
-        <div class="txt" id="bkTxt">Выберите время</div>
-        <div class="btns">
-          <button class="btn btn--accent" id="bkTg" data-needs-agree disabled><svg><use href="#i-tg"/></svg>Telegram</button>
-          <button class="btn" id="bkWa" data-needs-agree disabled><svg><use href="#i-wa"/></svg>WhatsApp</button>
-        </div>
-      </div>
-      <p class="bk-hint">Здесь показаны не все свободные окна. Нужно раньше, позже или в другой день — <a data-link="telegram" target="_blank" rel="noopener">напишите мне</a>, подберём время. Через сайт можно записаться минимум за сутки.</p>
-    </div>
   </div>
 </section>
 
