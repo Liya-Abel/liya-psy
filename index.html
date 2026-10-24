@@ -350,6 +350,9 @@ section{padding:72px 0;position:relative;scroll-margin-top:40px}
 [data-needs-agree].locked{opacity:.45}
 
 /* ---------- шаги ---------- */
+.steps-sec{background:var(--blue-soft)}
+.steps-sec .step .ill{background:var(--card)}
+.strengths-sec{background:var(--paper-2)}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:36px;position:relative}
 .steps::before{content:"";position:absolute;top:70px;left:10%;right:10%;border-top:2.5px dashed var(--ink);opacity:.35}
 .step{text-align:center;position:relative}
@@ -812,7 +815,7 @@ footer nav a:hover{color:var(--accent)}
 </section>
 
 <!-- ============ КАК ПРОХОДИТ ============ -->
-<section id="steps">
+<section id="steps" class="steps-sec">
   <div class="wrap center">
     <span class="eyebrow rv">просто и понятно</span>
     <h2 class="rv">Как начать</h2>
@@ -956,7 +959,7 @@ footer nav a:hover{color:var(--accent)}
 </section>
 
 <!-- ============ СИЛЬНЫЕ СТОРОНЫ ============ -->
-<section style="padding-top:20px">
+<section class="strengths-sec" style="padding-top:72px">
   <div class="wrap center">
     <span class="eyebrow rv">почему со мной комфортно</span>
     <h2 class="rv">Что я приношу в работу</h2>
