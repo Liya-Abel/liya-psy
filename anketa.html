@@ -62,7 +62,8 @@ textarea:focus,input:focus{outline:none;border-color:var(--blue)}
 .bar .consent{flex-basis:100%;margin:2px 0 0;font-size:.78rem;opacity:.6}
 .bar .consent a{color:inherit}
 .bar .copy-pdf{flex-basis:100%;display:block;text-align:center;margin-top:6px;padding:13px 16px;border-radius:14px;border:2px solid #F2EEE7;color:#F2EEE7;text-decoration:none;font-weight:600}
-.bar .copy-pdf[hidden]{display:none}
+.bar .copy-pdf[hidden],.bar .copy-hint[hidden]{display:none}
+.bar .copy-hint{flex-basis:100%;margin:8px 0 0;font-size:.85rem;line-height:1.45;opacity:.8;text-align:center}
 .bar .fail{flex-basis:100%;margin-top:6px;padding:14px 16px;border-radius:14px;background:#FCE9E1;color:var(--ink);font-size:.92rem;line-height:1.5}
 .bar .fail ol{margin:6px 0 0;padding-left:20px}
 .lnk{background:none;border:0;padding:0;font:inherit;color:var(--accent);text-decoration:underline;cursor:pointer}
@@ -146,6 +147,7 @@ textarea:focus,input:focus{outline:none;border-color:var(--blue)}
     </div>
     <p class="consent">Нажимая «Отправить Лие», вы соглашаетесь на обработку ответов по <a href="politika.html" target="_blank">политике конфиденциальности</a>.</p>
     <a class="copy-pdf" id="copy" hidden>Скачать мою копию (PDF)</a>
+    <p class="copy-hint" id="copyHint" hidden>Файл откроется в браузере. Чтобы сохранить его на телефон, нажмите «Поделиться» и выберите «Сохранить файлы».</p>
     <div class="fail" id="fail" hidden>
       <b>Не получилось отправить автоматически.</b> Ничего не потерялось: ответы сохранены в этом браузере. Отправьте их вручную:
       <ol><li><button type="button" class="lnk" id="failCopy">Скопируйте ответы текстом</button></li>
@@ -249,6 +251,7 @@ function showCopy(b64, name){
     a.href = URL.createObjectURL(new Blob([arr], { type: "application/pdf" }));
     a.download = "anketa26-27.pdf";
     a.hidden = false;
+    document.getElementById("copyHint").hidden = false;
   } catch(e) {}
 }
 const tgBtn = document.getElementById("tg"), tgLabel = tgBtn.querySelector("span"), fail = document.getElementById("fail");
