@@ -315,6 +315,14 @@ footer a{color:var(--muted)}
 .d{font-family:var(--f-head);font-size:.86em}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+.cookie{position:fixed;left:16px;right:16px;bottom:16px;z-index:250;max-width:560px;margin:0 auto;background:var(--card);border:2px solid var(--ink);border-radius:20px;box-shadow:6px 6px 0 var(--accent);padding:16px 18px;display:none;gap:14px;align-items:center;font-size:.9rem;color:var(--muted)}
+.cookie.show{display:flex}
+.cookie p{flex:1;line-height:1.45}
+.cookie a{color:var(--ink)}
+.cookie .btns{gap:8px;flex-wrap:nowrap}
+.cookie .btn{padding:9px 16px;font-size:.88rem}
+.cookie svg{width:38px;height:38px;flex:none}
+@media (max-width:600px){.cookie{flex-wrap:wrap;bottom:86px}.cookie .btns{width:100%}.cookie .btn{flex:1;justify-content:center}}
 </style>
 <script type="application/ld+json">
 {
@@ -453,7 +461,7 @@ footer a{color:var(--muted)}
   <div class="wrap center">
     <span class="eyebrow" style="color:var(--pine)">что я предлагаю</span>
     <h2>Уделить <em>90 минут</em> себе</h2>
-    <p class="say"><b>Зачем это:</b> уйти в 2027 с ясностью, а не со списком целей, который забудется. Одна встреча со мной, психологом: разбираем 2026 год и ставим цели, такие, на которые у вас действительно есть силы.</p>
+    <p class="say"><b>Зачем это:</b> войти в 2027 год с ясностью, а не со списком целей, который забудется. Одна встреча со мной, психологом: разбираем 2026 год и ставим цели, такие, на которые у вас действительно есть силы.</p>
     <a class="btn btn--pine" href="#book">Выбрать время</a>
   </div>
 </section>
@@ -719,6 +727,11 @@ footer a{color:var(--muted)}
 </div></footer>
 <div class="toast" id="toast"></div>
 
+<div class="cookie" id="cookie" role="dialog" aria-label="Cookie">
+  <svg viewBox="0 0 60 60" aria-hidden="true"><use href="#buddy"/></svg>
+  <p>Я использую cookie и Яндекс Метрику, чтобы понимать, чем сайт полезен. Подробнее — в <a href="politika.html">политике конфиденциальности</a>.</p>
+  <div class="btns"><button class="btn btn--accent" id="ckYes">Хорошо</button><button class="btn btn--ghost" id="ckNo">Нет</button></div>
+</div>
 <script src="schedule.js"></script>
 <script>
 /* =========================================================
@@ -891,11 +904,18 @@ let ymOn = false;
 function goal(name){ if (ymOn && window.ym) ym(RZ.metrika, "reachGoal", name); }
 (function(){
   let c = null; try { c = localStorage.getItem("liya-cookie"); } catch(e) {}
-  if (c !== "yes" || !RZ.metrika) return; ymOn = true;
+  const loadMetrika = () => { if (ymOn || !RZ.metrika) return; ymOn = true;
   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();
    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js?id=" + RZ.metrika, "ym");
   ym(RZ.metrika, "init", { ssr:true, webvisor:true, clickmap:true, referrer:document.referrer, url:location.href, accurateTrackBounce:true, trackLinks:true });
+  };
+  const box = document.getElementById("cookie");
+  if (c === "yes") loadMetrika();
+  else if (c !== "no") setTimeout(() => box.classList.add("show"), 1200);
+  const set = v => { try { localStorage.setItem("liya-cookie", v); } catch(e) {} box.classList.remove("show"); if (v === "yes") loadMetrika(); };
+  document.getElementById("ckYes").onclick = () => set("yes");
+  document.getElementById("ckNo").onclick = () => set("no");
 })();
 </script>
 </body>
