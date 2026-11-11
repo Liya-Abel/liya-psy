@@ -597,6 +597,9 @@ footer h4{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:u
 footer nav{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
 footer nav a{color:var(--muted);text-decoration:none}
 footer nav a:hover{color:var(--accent)}
+.f-razbor{margin:0 auto;max-width:860px;padding:18px 22px;border:2px solid var(--ink);border-radius:20px;background:var(--card);display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;color:var(--ink)}
+.f-razbor p{flex:1;min-width:220px;line-height:1.45}
+.f-razbor .btn{padding:9px 18px;font-size:.9rem}
 .f-bottom{display:grid;grid-template-columns:1fr 1fr;gap:12px 40px;padding-top:24px;font-size:.78rem;line-height:1.55;opacity:.9}
 .f-bottom #legal,.f-bottom .f-phone{grid-column:1/-1;color:var(--ink);opacity:.75}
 @media (max-width:760px){.f-top{grid-template-columns:1fr 1fr;gap:30px}.f-top>div:first-child{grid-column:1/-1}.f-bottom{grid-template-columns:1fr}footer{padding-bottom:110px}}
@@ -1251,6 +1254,15 @@ footer nav a:hover{color:var(--accent)}
   </div>
 </section>
 
+<!-- ============ РАЗБОР ГОДА (исчезает вместе с плашкой после RAZBOR.until) ============ -->
+<section style="padding:20px 0 0" id="fRazbor">
+  <div class="wrap">
+    <div class="f-razbor">
+      <p>Попробовать со мной поработать можно через «Разбор года 2026 → 2027»: 90 минут, чтобы подвести итоги года и поставить цели на следующий.</p>
+      <a class="btn btn--accent" href="razbor.html">Подробнее</a>
+    </div>
+  </div>
+</section>
 <!-- ============ ФИНАЛ ============ -->
 <section style="padding:40px 0 80px">
   <div class="final rv">
@@ -1402,7 +1414,7 @@ legal.textContent = [CONFIG.ip.name, CONFIG.ip.inn && `ИНН ${CONFIG.ip.inn}`,
 /* плашка «Разбор года» */
 (function(){
   const el = document.getElementById("promo"), today = dayKey(moscowNow());
-  if (today > RAZBOR.until) { el.remove(); return; }
+  if (today > RAZBOR.until) { el.remove(); document.getElementById("fRazbor")?.remove(); return; }
   const [, m, d] = RAZBOR.until.split("-").map(Number);
   document.getElementById("promoUntil").textContent = `${d} ${["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"][m - 1]}`;
   const early = document.getElementById("nyEarly");
