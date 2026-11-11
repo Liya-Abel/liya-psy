@@ -119,6 +119,7 @@ textarea:focus,input:focus{outline:none;border-color:var(--blue)}
   <div class="who">
     <div class="q"><label for="f-name">Имя</label><input type="text" id="f-name" data-k="name"></div>
     <div class="q"><label for="f-date">Дата нашей встречи</label><input type="text" id="f-date" data-k="date"></div>
+    <div class="q" style="grid-column:1/-1"><label for="f-contact">Как с вами связаться <small>обязательно: ник в Telegram или почта, чтобы я могла ответить</small></label><input type="text" id="f-contact" data-k="contact" placeholder="@nickname или name@mail.ru"></div>
   </div>
 
   <h2><span class="n">1</span>Год по месяцам</h2>
@@ -218,7 +219,7 @@ fillPv();
 
 function toast(t){ const el = document.getElementById("toast"); el.textContent = t; el.classList.add("show"); setTimeout(() => el.classList.remove("show"), 4000); }
 function asText(){
-  const L = [`Анкета к «Разбору года»`, store.name ? `Имя: ${store.name}` : "", store.date ? `Встреча: ${store.date}` : "", ""];
+  const L = [`Анкета к «Разбору года»`, store.name ? `Имя: ${store.name}` : "", store.date ? `Встреча: ${store.date}` : "", store.contact ? `Связь: ${store.contact}` : "", ""];
   L.push("ГОД ПО МЕСЯЦАМ"); MONTHS.forEach((m, i) => store["m" + i] && L.push(`${m}: ${store["m" + i]}`));
   L.push("", "КОЛЕСО ГОДА"); SPHERES.forEach((s, i) => store["w" + i] != null && L.push(`${s}: ${store["w" + i]}`));
   let k = 0;
@@ -232,7 +233,7 @@ function asData(){
   let k = 0;
   const qs = (arr, p) => arr.map(([t], i) => ({ q: `${++k}. ${t}`, a: store[p + i] || "" }));
   return {
-    type: "anketa", name: store.name || "", date: store.date || "",
+    type: "anketa", name: store.name || "", date: store.date || "", contact: (store.contact || "").trim(),
     wheel: SPHERES.map((s, i) => store["w" + i] != null ? [s, +store["w" + i]] : null).filter(Boolean),
     sections: [
       { h: "Год по месяцам", items: MONTHS.map((m, i) => ({ q: m[0].toUpperCase() + m.slice(1), a: store["m" + i] || "", short: true })) },
@@ -259,6 +260,7 @@ tgBtn.onclick = async () => {
   const d = asData();
   const filled = d.wheel.length || d.sections.some(s => s.items.some(x => x.a.trim()));
   if (!filled) { toast("Анкета пока пустая: ответьте хотя бы на пару вопросов"); return; }
+  if (!d.contact) { toast("Напишите, как с вами связаться: ник в Telegram или почту"); const c = document.getElementById("f-contact"); c.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(() => c.focus(), 400); return; }
   if (!d.name.trim()) { toast("Напишите, пожалуйста, имя в начале анкеты"); const f = document.getElementById("f-name"); f.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(() => f.focus(), 400); return; }
   tgBtn.disabled = true; tgLabel.textContent = "Отправляю…"; fail.hidden = true; fail.parentNode.classList.remove("has-fail");
   let ok = false;
