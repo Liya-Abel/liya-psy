@@ -316,6 +316,55 @@ footer a{color:var(--muted)}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
 </style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Service",
+   "@id": "https://liya-psy.ru/razbor.html#service",
+   "name": "Разбор года 2026 → 2027",
+   "serviceType": "Психологическая консультация",
+   "description": "Встреча с психологом на 90 минут: подведение итогов 2026 года и постановка целей на 2027-й. Онлайн или очно в Мурино. Можно подарить подарочным сертификатом.",
+   "url": "https://liya-psy.ru/razbor.html",
+   "provider": { "@id": "https://liya-psy.ru/#liya" },
+   "areaServed": "RU",
+   "audience": { "@type": "Audience", "audienceType": "Взрослые, которые хотят подвести итоги года и поставить цели" },
+   "offers": [
+    {
+     "@type": "Offer",
+     "name": "Разбор года, онлайн",
+     "price": "6000",
+     "priceCurrency": "RUB",
+     "availability": "https://schema.org/InStock",
+     "validThrough": "2027-01-20",
+     "url": "https://liya-psy.ru/razbor.html#book"
+    },
+    {
+     "@type": "Offer",
+     "name": "Разбор года, очно в Мурино",
+     "price": "6600",
+     "priceCurrency": "RUB",
+     "availability": "https://schema.org/InStock",
+     "validThrough": "2027-01-20",
+     "url": "https://liya-psy.ru/razbor.html#book"
+    }
+   ]
+  },
+  {
+   "@type": "Offer",
+   "@id": "https://liya-psy.ru/razbor.html#gift",
+   "name": "Подарочный сертификат на «Разбор года»",
+   "itemOffered": { "@id": "https://liya-psy.ru/razbor.html#service" },
+   "price": "6000",
+   "priceCurrency": "RUB",
+   "availability": "https://schema.org/InStock",
+   "validThrough": "2027-01-31",
+   "url": "https://liya-psy.ru/razbor.html#gift"
+  }
+ ]
+}
+</script>
 </head>
 <body>
 
