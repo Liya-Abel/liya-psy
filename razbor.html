@@ -294,6 +294,7 @@ section{padding:72px 0;position:relative;scroll-margin-top:70px}
 footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:.85rem;color:var(--muted)}
 footer .wrap{display:flex;flex-wrap:wrap;gap:12px 30px;justify-content:space-between}
 footer a{color:var(--muted)}
+footer .f-note{flex-basis:100%;font-size:.78rem}
 
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--ink);color:var(--paper);padding:12px 20px;border-radius:14px;font-size:.92rem;opacity:0;transition:.3s;pointer-events:none;z-index:200;max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}
@@ -595,7 +596,7 @@ footer a{color:var(--muted)}
         <span class="txt" id="sumTxt">Выберите время</span>
         <div class="btns">
           <button class="btn btn--accent" id="bkTg" data-needs-agree disabled><svg><use href="#i-tg"/></svg>Telegram</button>
-          <button class="btn" id="bkWa" data-needs-agree disabled><svg><use href="#i-wa"/></svg>WhatsApp</button>
+          <button class="btn" id="bkWa" data-needs-agree disabled><svg><use href="#i-wa"/></svg>WhatsApp*</button>
         </div>
       </div>
       <div class="next">
@@ -608,7 +609,7 @@ footer a{color:var(--muted)}
         </ol>
         <p>Перенести встречу можно не позднее чем за 24 часа. Всё, о чём мы говорим, остаётся между нами.</p>
       </div>
-      <p class="hint">Показаны не все свободные окна. Не нашли удобное время? <a data-link="telegram" target="_blank" rel="noopener">Напишите мне</a>, подберём другое. Есть подарочный сертификат? Запись по нему — через Telegram или WhatsApp, просто назовите номер сертификата.</p>
+      <p class="hint">Показаны не все свободные окна. Не нашли удобное время? <a data-link="telegram" target="_blank" rel="noopener">Напишите мне</a>, подберём другое. Есть подарочный сертификат? Запись по нему — через Telegram или WhatsApp*, просто назовите номер сертификата.</p>
     </div>
   </div>
 </section>
@@ -663,7 +664,7 @@ footer a{color:var(--muted)}
           <ul>
             <li>Даёт право на одну встречу «Разбор года» (90 минут) в формате, выбранном при покупке.</li>
             <li>Действует до <b data-cert-until></b> включительно: встреча должна состояться не позднее этой даты.</li>
-            <li>Запись — через Telegram или WhatsApp, назвав номер сертификата. Лучше записаться заранее.</li>
+            <li>Запись — через Telegram или WhatsApp*, назвав номер сертификата. Лучше записаться заранее.</li>
           </ul>
           <details class="more"><summary>Все правила</summary><ul>
             <li>Перенести встречу можно не позднее чем за 24 часа. Пропуск или отмена позже — встреча считается проведённой.</li>
@@ -675,18 +676,18 @@ footer a{color:var(--muted)}
       <div class="card" style="--c:var(--accent)">
         <div class="form">
           <p class="form-note">Заполните форму и отправьте её мне. Я пришлю реквизиты для оплаты, а после оплаты — готовый сертификат туда, куда вы укажете.</p>
-          <label>Для кого сертификат<small>имя, как его написать на сертификате</small><input type="text" id="gTo" maxlength="40" placeholder="например, Анне"></label>
-          <label>От кого<small>необязательно</small><input type="text" id="gFrom" maxlength="40" placeholder="например, от Маши"></label>
+          <label>Для кого сертификат<small>имя, как его написать на сертификате</small><input type="text" id="gTo" class="ym-disable-keys" maxlength="40" placeholder="например, Анне"></label>
+          <label>От кого<small>необязательно</small><input type="text" id="gFrom" class="ym-disable-keys" maxlength="40" placeholder="например, от Маши"></label>
           <div><p class="bk-label" style="margin-bottom:8px">формат встречи</p>
             <div class="bk-format" style="margin-bottom:0">
               <button class="pill on" data-gfmt="online">Онлайн<small data-price-short="online"></small></button>
               <button class="pill" data-gfmt="offline">Очно в Мурино<small data-price-short="offline"></small></button>
             </div></div>
-          <label>Куда прислать готовый сертификат<small>e-mail или ник в Telegram</small><input type="text" id="gSend" maxlength="80" placeholder="name@mail.ru или @nickname"></label>
+          <label>Куда прислать готовый сертификат<small>e-mail или ник в Telegram</small><input type="text" id="gSend" class="ym-disable-keys" maxlength="80" placeholder="name@mail.ru или @nickname"></label>
           <label class="agree" style="font-weight:400"><input type="checkbox" class="agree-cb"><span>Я ознакомлен(а) с <a href="oferta.html#s10" target="_blank">договором-офертой</a> (включая правила сертификатов) и <a href="politika.html" target="_blank">политикой конфиденциальности</a></span></label>
           <div class="btns">
             <button class="btn btn--accent" id="gTg" data-needs-agree><svg><use href="#i-tg"/></svg>Отправить в Telegram</button>
-            <button class="btn" id="gWa" data-needs-agree><svg><use href="#i-wa"/></svg>WhatsApp</button>
+            <button class="btn" id="gWa" data-needs-agree><svg><use href="#i-wa"/></svg>WhatsApp*</button>
           </div>
           <p class="hint" style="margin-top:0">Форма ничего не отправляет сама: откроется чат со мной и готовым сообщением.</p>
         </div>
@@ -727,6 +728,7 @@ footer a{color:var(--muted)}
 <footer><div class="wrap">
   <span id="legal"></span>
   <span><a href="oferta.html">Договор-оферта</a> · <a href="politika.html">Политика конфиденциальности</a> · <a href="#book">Выбрать время на разбор</a> · <a href="index.html">Главная</a></span>
+  <span class="f-note">* WhatsApp принадлежит компании Meta, признанной экстремистской и запрещённой на территории РФ.</span>
 </div></footer>
 <div class="toast" id="toast"></div>
 

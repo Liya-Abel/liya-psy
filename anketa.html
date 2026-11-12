@@ -114,7 +114,7 @@ textarea:focus,input:focus{outline:none;border-color:var(--blue)}
   <div class="lead">
     <p>Это не тест и не домашнее задание на оценку. Анкета помогает вспомнить год до встречи, чтобы 90 минут ушли на главное. Займёт минут 20–30.</p>
     <p>Пишите коротко, как получается. Можно пропускать вопросы. Если где-то станет тяжело, остановитесь: обсудим это на встрече.</p>
-    <p class="noprint" style="color:var(--muted);font-size:.92rem">Ответы сохраняются в этом браузере, пока вы пишете. Когда закончите, нажмите «Отправить Лие» внизу: анкета придёт мне в Telegram файлом PDF, больше её никто не увидит. После отправки её можно будет скачать себе в формате PDF. Пустую анкету для печати можно <a href="anketa-razbor-goda.pdf" download>скачать в PDF</a>.</p>
+    <p class="noprint" style="color:var(--muted);font-size:.92rem">Ответы сохраняются в этом браузере, пока вы пишете, и стираются из него после отправки. Когда закончите, нажмите «Отправить Лие» внизу: анкета придёт мне в Telegram файлом PDF, больше её никто не увидит. После отправки её можно будет скачать себе в формате PDF. Пустую анкету для печати можно <a href="anketa-razbor-goda.pdf" download>скачать в PDF</a>.</p>
   </div>
   <div class="who">
     <div class="q"><label for="f-name">Имя</label><input type="text" id="f-name" data-k="name"></div>
@@ -189,7 +189,8 @@ const PART5 = [
 /* ===== сборка ===== */
 const KEY = "liya-anketa";
 let store = {}; try { store = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch(e) {}
-const save = () => { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch(e) {} };
+let sentDone = false;   // после отправки ответы больше не хранятся в браузере
+const save = () => { if (sentDone) return; try { localStorage.setItem(KEY, JSON.stringify(store)); } catch(e) {} };
 const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let n = 0;
 const qBlock = ([t, hint], k, h) => `<div class="q"><label for="f-${k}">${++n}. ${t}${hint ? `<small>${hint}</small>` : ""}</label><textarea id="f-${k}" data-k="${k}"></textarea><div class="pv" style="--h:${h || 60}pt"></div></div>`;
@@ -275,6 +276,7 @@ tgBtn.onclick = async () => {
   tgBtn.disabled = false;
   if (ok) {
     tgBtn.classList.add("sent"); tgLabel.textContent = "Отправлено ✓";
+    sentDone = true; try { localStorage.removeItem(KEY); } catch(e) {}
     toast("Анкета у меня. Спасибо! До встречи 🧡");
     if (typeof ym === "function") try { ym(113253221, "reachGoal", "anketa_sent"); } catch(e) {}
   } else {
