@@ -114,7 +114,7 @@ textarea:focus,input:focus{outline:none;border-color:var(--blue)}
   <div class="lead">
     <p>Это не тест и не домашнее задание на оценку. Анкета помогает вспомнить год до встречи, чтобы 90 минут ушли на главное. Займёт минут 20–30.</p>
     <p>Пишите коротко, как получается. Можно пропускать вопросы. Если где-то станет тяжело, остановитесь: обсудим это на встрече.</p>
-    <p class="noprint" style="color:var(--muted);font-size:.92rem">Ответы сохраняются в этом браузере, пока вы пишете, и стираются из него после отправки. Когда закончите, нажмите «Отправить Лие» внизу: анкета придёт мне в Telegram файлом PDF, больше её никто не увидит. После отправки её можно будет скачать себе в формате PDF. Пустую анкету для печати можно <a href="anketa-razbor-goda.pdf" download>скачать в PDF</a>.</p>
+    <p class="noprint" style="color:var(--muted);font-size:.92rem">Ответы сохраняются только в этом браузере, пока вы пишете, и никуда не отправляются. Когда закончите, сохраните анкету в PDF или скопируйте текстом и пришлите мне в Telegram сами. Пустую анкету для печати можно <a href="anketa-razbor-goda.pdf" download>скачать в PDF</a>.</p>
   </div>
   <div class="who">
     <div class="q"><label for="f-name">Имя</label><input type="text" id="f-name" data-k="name"></div>
@@ -142,18 +142,13 @@ textarea:focus,input:focus{outline:none;border-color:var(--blue)}
   <p class="end">спасибо, что нашли на это время 🧡</p>
 
   <div class="bar">
-    <span class="t">Готово? Отправьте анкету мне, чтобы я прочитала её до встречи. После отправки её можно будет скачать в PDF.</span>
+    <span class="t">Готово? Сохраните анкету и пришлите её мне в Telegram. Через этот сайт она никуда не отправляется.</span>
     <div class="b">
-      <button class="btn btn--accent" id="tg"><svg><use href="#i-tg"/></svg><span>Отправить Лие</span></button>
+      <button class="btn btn--accent" id="savePdf"><svg><use href="#i-pdf"/></svg><span>Сохранить в PDF</span></button>
+      <button class="btn" id="copyTxt" type="button"><span>Скопировать текстом</span></button>
     </div>
-    <p class="consent">Нажимая «Отправить Лие», вы соглашаетесь на обработку ответов по <a href="politika.html" target="_blank">политике конфиденциальности</a>.</p>
-    <a class="copy-pdf" id="copy" hidden>Скачать мою копию (PDF)</a>
-    <p class="copy-hint" id="copyHint" hidden>Файл откроется в браузере. Чтобы сохранить его на телефон, нажмите «Поделиться» и выберите «Сохранить файлы».</p>
-    <div class="fail" id="fail" hidden>
-      <b>Не получилось отправить автоматически.</b> Ничего не потерялось: ответы сохранены в этом браузере. Отправьте их вручную:
-      <ol><li><button type="button" class="lnk" id="failCopy">Скопируйте ответы текстом</button></li>
-      <li>и пришлите мне в <a href="https://t.me/liya_abel" target="_blank" rel="noopener">Telegram @liya_abel</a>.</li></ol>
-    </div>
+    <p class="copy-hint">На телефоне: после нажатия «Сохранить в PDF» выберите «Поделиться» → «Сохранить в Файлы». Потом пришлите файл или текст мне в <a href="https://t.me/liya_abel" target="_blank" rel="noopener" style="color:inherit">Telegram @liya_abel</a>.</p>
+    <p class="consent">Анкета остаётся у вас, пока вы сами не отправите её мне. Подробнее в <a href="politika.html" target="_blank">политике конфиденциальности</a>.</p>
   </div>
 </main>
 <div class="toast" id="toast"></div>
@@ -161,8 +156,6 @@ textarea:focus,input:focus{outline:none;border-color:var(--blue)}
 <script>
 /* ===== ВОПРОСЫ — правь здесь ===== */
 const TELEGRAM = "https://t.me/liya_abel";
-/* скрипт Google, который собирает PDF и присылает его Лие в Telegram (тот же, что для записи) */
-const SEND_URL = "https://script.google.com/macros/s/AKfycbyqznVur80MOZ4fbmNnVh2pJQmP5H_rUeQ7a2XsFYML9KwkoFiqtcg5bZnSsijIsyQEzw/exec";
 const MONTHS = ["январь","февраль","март","апрель","май","июнь","июль","август","сентябрь","октябрь","ноябрь","декабрь"];
 const SPHERES = ["Здоровье и тело","Отдых и восстановление","Работа или учёба","Деньги","Партнёр или близкие отношения","Семья","Друзья и окружение","Развитие и обучение","Радость, хобби, творчество","Дом и быт"];
 const PART3 = [
@@ -189,8 +182,7 @@ const PART5 = [
 /* ===== сборка ===== */
 const KEY = "liya-anketa";
 let store = {}; try { store = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch(e) {}
-let sentDone = false;   // после отправки ответы больше не хранятся в браузере
-const save = () => { if (sentDone) return; try { localStorage.setItem(KEY, JSON.stringify(store)); } catch(e) {} };
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch(e) {} };
 const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let n = 0;
 const qBlock = ([t, hint], k, h) => `<div class="q"><label for="f-${k}">${++n}. ${t}${hint ? `<small>${hint}</small>` : ""}</label><textarea id="f-${k}" data-k="${k}"></textarea><div class="pv" style="--h:${h || 60}pt"></div></div>`;
@@ -229,65 +221,14 @@ function asText(){
   });
   return L.filter((x, i, a) => !(x === "" && a[i - 1] === "")).join("\n").trim();
 }
-/* то же, но по разделам — для PDF, который собирает скрипт */
-function asData(){
-  let k = 0;
-  const qs = (arr, p) => arr.map(([t], i) => ({ q: `${++k}. ${t}`, a: store[p + i] || "" }));
-  return {
-    type: "anketa", name: store.name || "", date: store.date || "", contact: (store.contact || "").trim(),
-    wheel: SPHERES.map((s, i) => store["w" + i] != null ? [s, +store["w" + i]] : null).filter(Boolean),
-    sections: [
-      { h: "Год по месяцам", items: MONTHS.map((m, i) => ({ q: m[0].toUpperCase() + m.slice(1), a: store["m" + i] || "", short: true })) },
-      { h: "Колесо года", wheel: true, items: [] },
-      { h: "Оглядываясь на 2026", items: qs(PART3, "a") },
-      { h: "Смотрим в 2027", items: qs(PART4, "b") },
-      { h: "Про нашу встречу", items: qs(PART5, "c") },
-    ],
-  };
-}
-function showCopy(b64, name){
-  try {
-    const bin = atob(b64), arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
-    const a = document.getElementById("copy");
-    a.href = URL.createObjectURL(new Blob([arr], { type: "application/pdf" }));
-    a.download = "anketa26-27.pdf";
-    a.hidden = false;
-    document.getElementById("copyHint").hidden = false;
-  } catch(e) {}
-}
-const tgBtn = document.getElementById("tg"), tgLabel = tgBtn.querySelector("span"), fail = document.getElementById("fail");
-tgBtn.onclick = async () => {
-  const d = asData();
-  const filled = d.wheel.length || d.sections.some(s => s.items.some(x => x.a.trim()));
+document.getElementById("savePdf").onclick = () => {
+  const filled = SPHERES.some((s, i) => store["w" + i] != null) || Object.keys(store).some(k => /^(m|a|b|c)\d+$/.test(k) && String(store[k]).trim());
   if (!filled) { toast("Анкета пока пустая: ответьте хотя бы на пару вопросов"); return; }
-  if (!d.contact) { toast("Напишите, как с вами связаться: ник в Telegram или почту"); const c = document.getElementById("f-contact"); c.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(() => c.focus(), 400); return; }
-  if (!d.name.trim()) { toast("Напишите, пожалуйста, имя в начале анкеты"); const f = document.getElementById("f-name"); f.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(() => f.focus(), 400); return; }
-  tgBtn.disabled = true; tgLabel.textContent = "Отправляю…"; fail.hidden = true; fail.parentNode.classList.remove("has-fail");
-  let ok = false;
-  try {
-    const ctl = new AbortController(); const tm = setTimeout(() => ctl.abort(), 30000);
-    // обычный текст без заголовков — так Google принимает запрос с сайта без лишних проверок
-    const r = await fetch(SEND_URL, { method: "POST", body: JSON.stringify(d), signal: ctl.signal });
-    clearTimeout(tm);
-    const j = await r.json(); ok = !!j.ok;
-    if (j.pdf) showCopy(j.pdf, j.file);
-  } catch(e) {}
-  tgBtn.disabled = false;
-  if (ok) {
-    tgBtn.classList.add("sent"); tgLabel.textContent = "Отправлено ✓";
-    sentDone = true; try { localStorage.removeItem(KEY); } catch(e) {}
-    toast("Анкета у меня. Спасибо! До встречи 🧡");
-    if (typeof ym === "function") try { ym(113253221, "reachGoal", "anketa_sent"); } catch(e) {}
-  } else {
-    tgLabel.textContent = "Попробовать ещё раз"; fail.hidden = false; fail.parentNode.classList.add("has-fail");
-    fail.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  }
+  fillPv(); toast("Откроется окно печати: выберите «Сохранить как PDF»"); setTimeout(() => window.print(), 600);
 };
-document.getElementById("failCopy").onclick = async () => {
+document.getElementById("copyTxt").onclick = async () => {
   try { await navigator.clipboard.writeText(asText()); toast("Ответы скопированы. Вставьте их в чат со мной в Telegram"); }
-  catch(e) { toast("Не получилось скопировать. Пришлите мне скриншот анкеты"); }
-  window.open(TELEGRAM, "_blank", "noopener");
+  catch(e) { toast("Не получилось скопировать. Сохраните анкету в PDF"); }
 };
 </script>
 </body>
