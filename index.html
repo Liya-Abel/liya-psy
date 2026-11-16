@@ -1343,7 +1343,7 @@ footer nav a:hover{color:var(--accent)}
 <div class="toast" id="toast"></div>
 <div class="cookie" id="cookie" role="dialog" aria-label="Cookie">
   <svg viewBox="0 0 60 60" aria-hidden="true"><use href="#buddy"/></svg>
-  <p>Я использую cookie и Яндекс Метрику, чтобы понимать, чем сайт полезен. Подробнее — в <a href="politika.html">политике конфиденциальности</a>.</p>
+  <p>Я использую cookie, Яндекс Метрику и пиксель VK Рекламы, чтобы понимать, чем сайт полезен и какая реклама работает. Подробнее — в <a href="politika.html">политике конфиденциальности</a>.</p>
   <div class="btns"><button class="btn btn--accent" id="ckYes">Хорошо</button><button class="btn btn--ghost" id="ckNo">Нет</button></div>
 </div>
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Документ">
@@ -1367,6 +1367,7 @@ const CONFIG = {
   instagram: "https://instagram.com/liya.abel",
   channel:   "https://t.me/psy_spy_pys",          // Telegram-канал
   metrika:   113253221,                          // номер счётчика Яндекс Метрики
+  vkPixel:   3815050,                            // номер пикселя VK Рекламы (Top.Mail.Ru)
   holdsUrl:  "https://script.google.com/macros/s/AKfycbyqznVur80MOZ4fbmNnVh2pJQmP5H_rUeQ7a2XsFYML9KwkoFiqtcg5bZnSsijIsyQEzw/exec",   // ссылка на Google-таблицу запросов (см. google-apps-script.gs). Пусто — без брони на время
   // Реквизиты ИП — строка внизу подвала (единственное место с ФИО на главной)
   ip: { name: "ИП Коробка Лия Викторовна", inn: "352831006044", ogrnip: "326470400133922" },
@@ -1669,7 +1670,24 @@ q("[data-needs-agree]").forEach(b => b.addEventListener("click", e => {
 
 /* Яндекс Метрика — только после согласия на cookie */
 let ymOn = false;
-function goal(name){ if (ymOn && window.ym) ym(CONFIG.metrika, "reachGoal", name); }
+/* Пиксель VK Рекламы (Top.Mail.Ru) — тоже только после согласия на cookie */
+let vkOn = false;
+function loadVk(id){
+  if (vkOn || !id) return; vkOn = true;
+  var _tmr = window._tmr || (window._tmr = []);
+  _tmr.push({id: String(id), type: "pageView", start: (new Date()).getTime()});
+  (function (d, w, sid) {
+    if (d.getElementById(sid)) return;
+    var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = sid;
+    ts.src = "https://top-fwz1.mail.ru/js/code.js";
+    var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);
+  })(document, window, "tmr-code");
+}
+function goal(name){
+  if (!name) return;
+  if (ymOn && window.ym) ym(CONFIG.metrika, "reachGoal", name);
+  if (vkOn && window._tmr) window._tmr.push({ id: String(CONFIG.vkPixel), type: "reachGoal", goal: name });
+}
 function loadMetrika(){
   if (ymOn || !CONFIG.metrika) return; ymOn = true;
   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();
@@ -1680,9 +1698,9 @@ function loadMetrika(){
 (function(){
   const box = document.getElementById("cookie");
   let c = null; try { c = localStorage.getItem("liya-cookie"); } catch(e) {}
-  if (c === "yes") loadMetrika();
+  if (c === "yes") { loadMetrika(); loadVk(CONFIG.vkPixel); }
   else if (c !== "no") setTimeout(() => box.classList.add("show"), 1200);
-  const set = v => { try { localStorage.setItem("liya-cookie", v); } catch(e) {} box.classList.remove("show"); if (v === "yes") loadMetrika(); };
+  const set = v => { try { localStorage.setItem("liya-cookie", v); } catch(e) {} box.classList.remove("show"); if (v === "yes") { loadMetrika(); loadVk(CONFIG.vkPixel); } };
   document.getElementById("ckYes").onclick = () => set("yes");
   document.getElementById("ckNo").onclick = () => set("no");
 })();
