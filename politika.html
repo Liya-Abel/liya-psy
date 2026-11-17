@@ -11,9 +11,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#F2EEE7">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Prata&family=Golos+Text:wght@400;500;600&family=Bad+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fonts/fonts.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--paper:#F2EEE7;--paper-2:#EAE5DC;--card:#FBF9F5;--ink:#26252E;--muted:#5E5B66;--accent:#E0542B;--blue:#7B7FE6;--blue-soft:#DCDDFA;--yellow:#F2D45A;--line:rgba(38,37,46,.14)}
@@ -111,7 +109,7 @@ h2 .n{font-family:'Bad Script',cursive;color:var(--accent);font-size:1.3rem}
     <h2 id="p4"><span class="n">4</span>Сторонние сервисы</h2>
     <ul>
       <li><b>Telegram и WhatsApp</b> — каналы связи, которые вы выбираете сами. Переписка ведётся по правилам этих сервисов, их серверы находятся за пределами России. Не пишите в мессенджер то, чем не готовы делиться этим способом. Если вы не хотите использовать эти мессенджеры, сообщите об этом, и мы договоримся о другом способе связи.</li>
-      <li><b>Google</b> — сайт загружает шрифты с серверов Google Fonts, а свободные окна календаря хранит в Google-таблице Консультанта. При загрузке шрифтов ваш браузер передаёт Google технические данные (IP-адрес). В таблицу попадают только дата и время выбранного слота, ваши имя, контакты и ответы анкеты туда не попадают.</li>
+      <li><b>Google</b> — свободные окна календаря хранятся в Google-таблице Консультанта (скрипт Google Apps Script). Когда страница загружает календарь записи, ваш браузер обращается к серверам Google и передаёт технические данные (IP-адрес). В таблицу попадают только дата и время выбранного слота, ваши имя, контакты и ответы анкеты туда не попадают. Шрифты сайт отдаёт со своих серверов, а не из Google Fonts.</li>
       <li><b>Яндекс Метрика</b> — обезличенная статистика посещений, только с вашего согласия (см. раздел 5).</li>
       <li><b>VK Реклама</b> — пиксель для оценки рекламы во ВКонтакте, только с вашего согласия (см. раздел 5).</li>
       <li><b>«Мой налог»</b> — для формирования чеков; в чеке указывается только сумма и название услуги.</li>
