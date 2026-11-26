@@ -1,0 +1,29 @@
+# Сверка учёбы с календарём InStudy: каждое воскресенье в 9:00 по Москве
+# обновляет дни учёбы в schedule.js и выкладывает сайт. Ссылка на календарь — в секрете INSTUDY_URL.
+name: Сверка учёбы
+
+on:
+  schedule:
+    - cron: "0 6 * * 0"   # воскресенье, 06:00 UTC = 09:00 МСК
+  workflow_dispatch:       # можно запустить вручную во вкладке Actions
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Обновить дни учёбы
+        env:
+          INSTUDY_URL: ${{ secrets.INSTUDY_URL }}
+          TZ: Europe/Moscow
+        run: python3 .github/scripts/sync-study.py --write
+      - name: Выложить, если что-то изменилось
+        run: |
+          if git diff --quiet; then echo "Ничего не изменилось"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "Учёба по календарю InStudy (автосверка)"
+          git push
